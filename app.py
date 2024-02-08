@@ -1,26 +1,32 @@
-from flask import Flask,request, url_for, redirect, render_template
+from flask import Flask, request, jsonify, render_template
 import pickle
 import numpy as np
 
 app = Flask(__name__)
 
-model=pickle.load(open('model.pkl','rb'))
+# Load your trained model
+model = pickle.load('model.pkl')
 
-
+# Define a route for the home page
 @app.route('/')
-def hello_world():
-    return render_template("forest_fire.html")
+def home():
+    return render_template('powerplant.html')
 
-
-@app.route('/predict',methods=['POST','GET'])
+# Define a route for prediction
+@app.route('/predict', methods=['POST'])
 def predict():
-    int_features=[int(x) for x in request.form.values()]
-    final=[np.array(int_features)]
-    print(int_features)
-    print(final)
-    prediction=model.predict_proba(final)
-    output='{0:.{1}f}'.format(prediction[0][1], 2)
+    # Get input data from the form
+    input_features = [float(request.form.get('Electricity from wind - TWh')),
+                  float(request.form.get('Electricity from hydro - TWh')),
+                  float(request.form.get('Electricity from solar - TWh')),
+                  float(request.form.get('Other renewables including bioenergy - TWh')),
+    ]
 
-    
+    # Make prediction
+    prediction = model.predict([input_features])[0]
+
+    # Return prediction as JSON
+    return jsonify({'prediction': prediction})
+
 if __name__ == '__main__':
     app.run(debug=True)

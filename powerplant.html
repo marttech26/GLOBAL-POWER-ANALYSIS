@@ -3,28 +3,44 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Starter Template - Materialize</title>
+  <title>Global Renewable Energy Analysis</title>
 
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="./static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="./static/css2/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <!-- Add Materialize CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+
+  <!-- Add custom CSS -->
+  <style>
+    body {
+      background-color: #f5f5f5; /* Light gray background */
+      font-family: 'Roboto', sans-serif; /* Use Roboto font */
+    }
+
+    .header {
+      margin-top: 50px; /* Add margin to the top of the header */
+      font-weight: bold; /* Make header text bold */
+    }
+
+    .input-field label {
+      color: #333; /* Darken label color */
+      font-weight: bold; /* Make label text bold */
+    }
+
+    .btn-large {
+      background-color: #ffa000; /* Orange button background */
+      font-weight: bold; /* Make button text bold */
+    }
+
+    .page-footer {
+      background-color: #ff6f00; /* Orange footer background */
+    }
+
+    .footer-text {
+      color: #fff; /* White footer text color */
+    }
+  </style>
 </head>
 
 <body>
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-
-      <ul id="nav-mobile" class="sidenav">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-    </div>
-  </nav>
-
 
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
@@ -32,101 +48,52 @@
       <h1 class="header center orange-text">Global Renewable Energy Analysis</h1>
       <div class="row center">
         <h5 class="header col s12 light">Predict Total Renewable Energy Generation</h5>
-        <br>
-        </h5>
       </div>
 
-              <div class="row">
-    <form action='/predict' method="post" class="col s12">
       <div class="row">
-        <div class="input-field col s4">
-            <label for="first_name"><b>Electricity from wind - TWh</b></label>
-            <br>
-          <input placeholder="wind" name="Electricity from wind - TWh"  type="text" class="validate" id="first_name">
-        </div>
-        <div class="input-field col s4">
+        <form action='/prediction' method="post" class="col s12">
+          <div class="row">
+            <div class="input-field col s6">
+              <input placeholder="Electricity from wind - TWh" name="Electricity from wind - TWh" type="text" class="validate">
+              <label for="first_name">Electricity from wind - TWh</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="last_name" name="Electricity from hydro - TW" placeholder="Electricity from hydro - TWh" type="text" class="validate">
+              <label for="last_name">Electricity from hydro - TWh</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="_name" name="Electricity from solar - TWh" placeholder="Electricity from solar - TWh" type="text" class="validate">
+              <label for="_name">Electricity from solar - TWh</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="_name" name="Other renewables including bioenergy - TWh" placeholder="Other renewables including bioenergy - TW" type="text" class="validate">
+              <label for="_name">Other renewables including bioenergy - TWh</label>
+            </div>
+          </div>
 
-          <label for="last_name"><b>Electricity from hydro - TWh</b></label>
-            <br>
-          <input id="last_name" name="Electricity from hydro - TW" placeholder="Hydro"  type="text" class="validate">
-
-        </div>
-
-        <div class="input-field col s4">
-            <label for="_name"><b>Electricity from solar - TWh</b></label>
-            <br>
-          <input id="_name" name="Electricity from solar - TWh" placeholder="Solar" type="text" class="validate">
-
-        </div>
-
-        <div class="input-field col s4">
-            <label for="_name"><b>Other renewables including bioenergy - TW</b></label>
-            <br>
-          <input id="_name" name="Other renewables including bioenergy - TW" placeholder="bioenergy" type="text" class="validate">
-
-        </div>
-
+          <div class="row center">
+            <button type="submit" class="btn-large waves-effect waves-light orange">Predict Total Renewable Energy</button>
+          </div>
+        </form>
       </div>
 
-      <div class="row center">
-
-          <button type="submit" class="btn-large waves-effect waves-light orange">Predict Total Renewable Electricity</button>
-      </div>
-    </form>
-      </div>
-
-      <br>
-        {{pred}}<br>
+     
 
     </div>
   </div>
-
-
-    <br><br>
-  </div>
-  </div>>
 
   <footer class="page-footer orange">
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
           <h5 class="white-text">Group Bio</h5>
-          <p class="grey-text text-lighten-4">Group 9 work.</p>
-
-
+          <p class="grey-text text-lighten-4 footer-text">Group 9 work.</p>
         </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Settings</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-        <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
       </div>
     </div>
   </footer>
 
-
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src=".js/materialize.js"></script>
-  <script src="js/init.js"></script>
-
-  </body>
+  <!-- Add Materialize JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
 </html>
