@@ -16,7 +16,7 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     # Get input data from the form
-    input_features = [float(request.form.get('Electricity from wind - TWh')),
+    input_features =[float(request.form.get('Electricity from wind - TWh')),
                   float(request.form.get('Electricity from hydro - TWh')),
                   float(request.form.get('Electricity from solar - TWh')),
                   float(request.form.get('Other renewables including bioenergy - TWh'))
