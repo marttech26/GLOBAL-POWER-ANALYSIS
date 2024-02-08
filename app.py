@@ -5,7 +5,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Load your trained model
-model = pickle.load('model.pkl')
+model = pickle.load('model.pkl', 'rb')
 
 # Define a route for the home page
 @app.route('/')
@@ -19,7 +19,7 @@ def predict():
     input_features = [float(request.form.get('Electricity from wind - TWh')),
                   float(request.form.get('Electricity from hydro - TWh')),
                   float(request.form.get('Electricity from solar - TWh')),
-                  float(request.form.get('Other renewables including bioenergy - TWh')),
+                  float(request.form.get('Other renewables including bioenergy - TWh'))
     ]
 
     # Make prediction
