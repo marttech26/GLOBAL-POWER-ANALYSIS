@@ -5,8 +5,10 @@ import numpy as np
 app = Flask(__name__)
 
 # Load your trained model
-model = pickle.load('model.pkl', 'rb')
 
+with open('best_model.pkl', 'rb') as f:
+    model = pickle.load(f)
+    
 # Define a route for the home page
 @app.route('/')
 def home():
