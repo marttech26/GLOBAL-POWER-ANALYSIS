@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Global Renewable Energy Analysis</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f5f5f5; 
+      font-family: 'Roboto', sans-serif; 
+    }
+
+    .header {
+      margin-top: 50px; 
+      font-weight: bold; 
+    }
+
+    .input-field label {
+      color: #333; 
+      font-weight: bold;
+    }
+
+    .btn-large {
+      background-color: #ffa000; 
+      font-weight: bold; 
+    }
+
+    .page-footer {
+      background-color: #ff6f00; 
+    }
+
+    .footer-text {
+      color: #fff; 
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center orange-text">Global Renewable Energy Analysis</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">Predict  Renewable Energy Generation</h5>
+      </div>
+
+      <div class="row">
+        <form action='/predict' method="post" class="col s12">
+          <div class="row">
+            <div class="input-field col s6">
+              <input placeholder="Electricity from wind - TWh" name="Electricity from wind - TWh" type="text" class="validate">
+              <label for="first_name">Electricity from wind - TWh</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="last_name" name="Electricity from hydro - TWh" placeholder="Electricity from hydro - TWh" type="text" class="validate">
+              <label for="last_name">Electricity from hydro - TWh</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="_name" name="Electricity from solar - TWh" placeholder="Electricity from solar - TWh" type="text" class="validate">
+              <label for="_name">Electricity from solar - TWh</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="_name" name="Other renewables including bioenergy - TWh" placeholder="Other renewables including bioenergy - TWh" type="text" class="validate">
+              <label for="_name">Other renewables including bioenergy - TWh</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input id="_name" name="Year" placeholder="Year" type="text" class="validate">
+              <label for="_name">Year</label>
+            </div>
+          </div>
+
+          <div class="row center">
+            <button type="submit" class="btn-large waves-effect waves-light orange">Predict Renewable Energy</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="page-footer orange">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Group Bio</h5>
+          <p class="grey-text text-lighten-4 footer-text">Group 9 work.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
