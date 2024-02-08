@@ -99,3 +99,6 @@ def plot_power_plant_distribution(df):
 
     # Show the plot
     plt.show()
+
+
+    
