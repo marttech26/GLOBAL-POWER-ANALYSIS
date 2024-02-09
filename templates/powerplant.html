@@ -45,32 +45,65 @@
       <br><br>
       <h1 class="header center orange-text">Global Renewable Energy Analysis</h1>
       <div class="row center">
-        <h5 class="header col s12 light">Predict  Renewable Energy Generation</h5>
+        <h5 class="header col s12 light">Predict Renewable Energy Generation</h5>
       </div>
 
       <div class="row">
         <form action='/predict' method="post" class="col s12">
           <div class="row">
             <div class="input-field col s6">
-              <input placeholder="Electricity from wind - TWh" name="Electricity from wind - TWh" type="text" class="validate">
-              <label for="first_name">Electricity from wind - TWh</label>
+              <select name="year" id="yearSelect">
+                <!-- Options will be added dynamically -->
+              </select>
+              <label>Select Year</label>
             </div>
             <div class="input-field col s6">
-              <input id="last_name" name="Electricity from hydro - TWh" placeholder="Electricity from hydro - TWh" type="text" class="validate">
-              <label for="last_name">Electricity from hydro - TWh</label>
-            </div>
-            <div class="input-field col s6">
-              <input id="_name" name="Electricity from solar - TWh" placeholder="Electricity from solar - TWh" type="text" class="validate">
-              <label for="_name">Electricity from solar - TWh</label>
-            </div>
-            <div class="input-field col s6">
-              <input id="_name" name="Other renewables including bioenergy - TWh" placeholder="Other renewables including bioenergy - TWh" type="text" class="validate">
-              <label for="_name">Other renewables including bioenergy - TWh</label>
+              <select name="model">
+                <option value="wind">Wind</option>
+                <option value="hydro">Hydro</option>
+                <option value="solar">Solar</option>
+                <option value="bioenergy">Bioenergy</option>
+              </select>
+              <label>Select Model</label>
             </div>
 
             <div class="input-field col s6">
-              <input id="_name" name="Year" placeholder="Year" type="text" class="validate">
-              <label for="_name">Year</label>
+              <input placeholder="Electricity from wind - TWh" name="wind" type="text" class="validate">
+              <label for="wind">Electricity from wind - TWh</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input placeholder="Electricity from hydro - TWh" name="hydro" type="text" class="validate">
+              <label for="hydro">Electricity from hydro - TWh</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input placeholder="Electricity from solar - TWh" name="solar" type="text" class="validate">
+              <label for="solar">Electricity from solar - TWh</label>
+            </div>
+            
+            <div class="input-field col s6">
+              <input placeholder="Electricity from bioenergy - TWh" name="bioenergy" type="text" class="validate">
+              <label for="bioenergy">Electricity from bioenergy - TWh</label>
+            </div>
+            
+            <div class="input-field col s6">
+              <select name="entity">
+                {% for country in countries %}
+                <option value="{{ country }}">{{ country }}</option>
+                {% endfor %}
+              </select>
+              <label>Select Entity (Country)</label>
+            </div>
+            
+            <div class="input-field col s6">
+              <input placeholder="Total Renewable Electricity - TWh" name="total_renewable" type="text" class="validate">
+              <label for="total_renewable">Total Renewable Electricity - TWh</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input placeholder="Electricity from Non-Renewables - TWh" name="non_renewable" type="text" class="validate">
+              <label for="non_renewable">Electricity from Non-Renewables - TWh</label>
             </div>
           </div>
 
@@ -95,5 +128,19 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var yearSelect = document.getElementById('yearSelect');
+      var currentYear = new Date().getFullYear();
+      for (var year = 2021; year <= 2049; year++) {
+        var option = document.createElement('option');
+        option.value = year;
+        option.text = year;
+        yearSelect.appendChild(option);
+      }
+      var elems = document.querySelectorAll('select');
+      var instances = M.FormSelect.init(elems);
+    });
+  </script>
 </body>
 </html>
