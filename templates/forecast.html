@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forecast</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4; /* Light gray background */
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #86aa1a; /* Blue color */
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #555; /* Dark gray color */
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd; /* Light gray border */
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #007bff; /* Blue color */
+            color: #fff; /* White text */
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Alternate row color */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Forecast for {{ country_name }}</h1>
+    <h2>Forecast Type: {{ forecast_type }}</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Forecast Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for year, value in forecast_data %}
+            <tr>
+                <td>{{ year }}</td>
+                <td>{{ value }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
