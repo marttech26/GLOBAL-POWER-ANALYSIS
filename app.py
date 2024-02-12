@@ -1,77 +1,76 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
+import numpy as np
+import pandas as pd
 import pickle
-import numpy as np  # Import NumPy for array manipulation
-import pandas as pd  # Import Pandas for data manipulation
+from statsmodels.tsa.arima.model import ARIMA
 
 app = Flask(__name__)
 
-# Load pickled models
-models = {}
-model_files = [
-    "pipeline_wind.pkl", 
-    "pipeline_hydro.pkl", 
-    "pipeline_solar.pkl", 
-    "pipeline_bioenergy.pkl"  
-]
+# Load your merged dataframe (merged_df) here
+merged_df = pd.read_csv('modelling.csv')
 
-for file in model_files:
-    with open(file, 'rb') as f:
-        models[file.split('_')[1].split('.')[0]] = pickle.load(f)  
+def load_arima_model(country_name, forecast_type):
+    # Load the ARIMA model from the pickle file
+    model_file = f'{country_name}_{forecast_type}_arima_model.pkl'
+    with open(model_file, 'rb') as file:
+        model = pickle.load(file)
+    return model
 
-# Load country data from CSV file
-countries_df = pd.read_csv('modelling.csv')
-countries = countries_df['Entity'].tolist()
+def train_arima_model(country_name, forecast_type):
+    # Filter the DataFrame to include data only for the specified country
+    country_df = merged_df[merged_df['Entity'] == country_name]
+
+    # Convert the Pandas Series to a 1D NumPy array
+    x_values = country_df['Year'].to_numpy()
+    y_values = country_df[forecast_type].to_numpy()
+
+    # Fit ARIMA model
+    model = ARIMA(y_values, order=(1, 1, 1))  # You can adjust the order as needed
+    model_fit = model.fit()
+
+    # Export the trained model to a pickle file
+    model_file = f'{country_name}_{forecast_type}_arima_model.pkl'
+    with open(model_file, 'wb') as file:
+        pickle.dump(model_fit, file)
+
+def make_forecast(country_name, forecast_type, model):
+    # Filter the DataFrame to include data only for the specified country
+    country_df = merged_df[merged_df['Entity'] == country_name]
+
+    # Forecast for future years
+    forecast_steps = 5  # forecast for the next 5 years
+    forecast = model.forecast(steps=forecast_steps)
+
+    # Generate future year indices
+    future_years = np.arange(country_df['Year'].max() + 1, country_df['Year'].max() + forecast_steps + 1)
+
+    return future_years, forecast
 
 @app.route('/')
 def index():
-    return render_template('powerplant.html', countries=countries)
+    return render_template('powerplant.html')
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    model_name = request.form['model']  # Get selected model from form
-    year = request.form['year']  # Get year from form
-    
-    # Handle empty input fields
-    wind = request.form['wind']
-    hydro = request.form['hydro']
-    solar = request.form['solar']
-    bioenergy = request.form['bioenergy']
-    entity = request.form['entity']
-    total_renewable = request.form['total_renewable']
-    non_renewable = request.form['non_renewable']
-    
-    # Convert to float if not empty, otherwise use default value of 0.0
-    wind = float(wind) if wind else 0.0
-    hydro = float(hydro) if hydro else 0.0
-    solar = float(solar) if solar else 0.0
-    bioenergy = float(bioenergy) if bioenergy else 0.0
-    total_renewable = float(total_renewable) if total_renewable else 0.0
-    non_renewable = float(non_renewable) if non_renewable else 0.0
-    
-    features = {
-        'Entity': entity,
-        'Electricity generation - TWh': 0,  # Placeholder value, assuming it's not needed for prediction
-        'Electricity from wind - TWh': wind,
-        'Electricity from hydro - TWh': hydro,
-        'Electricity from solar - TWh': solar,
-        'Other renewables including bioenergy - TWh': bioenergy,
-        'Total Renewable Electricity - TWh': total_renewable,
-        'Electricity from Non-Renewables - TWh': non_renewable,
-        'Year': float(year)  # Convert to float
-    }
-    
-    # Convert features into a 2D array with a single row
-    X = np.array([list(features.values())])  
-    
-    # Convert features into a DataFrame
-    X_df = pd.DataFrame(data=X, columns=features.keys())
-    
-    # Predict using the selected model
-    pipeline = models[model_name]
-    prediction = pipeline.predict(X_df)
-    
-    return jsonify({'prediction': prediction.tolist()})
+@app.route('/forecast', methods=['POST'])
+def forecast():
+    country_name = request.form['country_name']
+    forecast_type = request.form['forecast_type']
 
+    # Load ARIMA model
+    try:
+        model = load_arima_model(country_name, forecast_type)
+    except FileNotFoundError:
+        # Train ARIMA model if not found
+        train_arima_model(country_name, forecast_type)
+        # Load the newly trained model
+        model = load_arima_model(country_name, forecast_type)
+
+    # Make forecast
+    forecast_years, forecast_values = make_forecast(country_name, forecast_type, model)
+
+    # Prepare forecast data
+    forecast_data = [(year, value) for year, value in zip(forecast_years, forecast_values)]
+
+    return render_template('forecast.html', country_name=country_name, forecast_type=forecast_type, forecast_data=forecast_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
