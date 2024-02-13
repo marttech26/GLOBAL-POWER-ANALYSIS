@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import pickle
-#from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.tsa.arima.model import ARIMA
 
 # Load your merged dataframe (merged_df) here
 merged_df = pd.read_csv('modelling.csv')
@@ -48,7 +48,10 @@ def main():
     st.title('Renewable Energy Forecast')
 
     country_name = st.selectbox('Select Country:', merged_df['Entity'].unique())
-    forecast_type = st.selectbox('Select Forecast Type:', merged_df.columns[1:])  # Assuming the first column is 'Entity'
+    
+    # Remove 'Year' and 'Urbanization' from the list of forecast types
+    forecast_types = [col for col in merged_df.columns[1:] if col not in ['Year', 'Urbanization']]
+    forecast_type = st.selectbox('Select Forecast Type:', forecast_types)
 
     if st.button('Get Forecast'):
         try:
