@@ -1,10 +1,8 @@
-from flask import Flask, render_template, request
+import streamlit as st
 import numpy as np
 import pandas as pd
 import pickle
 from statsmodels.tsa.arima.model import ARIMA
-
-app = Flask(__name__)
 
 # Load your merged dataframe (merged_df) here
 merged_df = pd.read_csv('modelling.csv')
@@ -46,31 +44,27 @@ def make_forecast(country_name, forecast_type, model):
 
     return future_years, forecast
 
-@app.route('/')
-def index():
-    return render_template('powerplant.html')
+def main():
+    st.title('Renewable Energy Forecast')
 
-@app.route('/forecast', methods=['POST'])
-def forecast():
-    country_name = request.form['country_name']
-    forecast_type = request.form['forecast_type']
+    country_name = st.selectbox('Select Country:', merged_df['Entity'].unique())
+    forecast_type = st.selectbox('Select Forecast Type:', merged_df.columns[1:])  # Assuming the first column is 'Entity'
 
-    # Load ARIMA model
-    try:
-        model = load_arima_model(country_name, forecast_type)
-    except FileNotFoundError:
-        # Train ARIMA model if not found
-        train_arima_model(country_name, forecast_type)
-        # Load the newly trained model
-        model = load_arima_model(country_name, forecast_type)
+    if st.button('Get Forecast'):
+        try:
+            model = load_arima_model(country_name, forecast_type)
+        except FileNotFoundError:
+            # Train ARIMA model if not found
+            train_arima_model(country_name, forecast_type)
+            # Load the newly trained model
+            model = load_arima_model(country_name, forecast_type)
 
-    # Make forecast
-    forecast_years, forecast_values = make_forecast(country_name, forecast_type, model)
+        forecast_years, forecast_values = make_forecast(country_name, forecast_type, model)
 
-    # Prepare forecast data
-    forecast_data = [(year, value) for year, value in zip(forecast_years, forecast_values)]
+        # Prepare forecast data
+        forecast_data = pd.DataFrame({'Year': forecast_years, 'Forecast': forecast_values})
 
-    return render_template('forecast.html', country_name=country_name, forecast_type=forecast_type, forecast_data=forecast_data)
+        st.write(forecast_data)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    main()
