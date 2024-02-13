@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import pickle
-from statsmodels.tsa.arima.model import ARIMA
+#from statsmodels.tsa.arima.model import ARIMA
 
 # Load your merged dataframe (merged_df) here
 merged_df = pd.read_csv('modelling.csv')
