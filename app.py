@@ -45,7 +45,7 @@ def make_forecast(country_name, forecast_type, model):
     return future_years, forecast
 
 def index():
-    st.title('GLOBAL POWER ANALYSIS')
+    st.title('GLOBAL RENEWABLE ENERGY ANALYSIS')
     country_name = st.selectbox('Select country:', ['Afghanistan', 'Albania', 'Algeria', 'American Samoa', 'Angola',
        'Antigua and Barbuda', 'Argentina', 'Armenia', 'Aruba',
        'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain',
@@ -125,7 +125,7 @@ def show_forecast_page(forecast_data, country_name, forecast_type):
     st.table(forecast_df)
 
 def main():
-    st.title('GLOBAL POWER ANALYSIS')
+    st.title('GLOBAL RENEWABLE ENERGY ANALYSIS')
 
     # Sidebar for user input
     country_name = st.sidebar.selectbox('Select country:', ['Afghanistan', 'Albania', 'Algeria', 'American Samoa', 'Angola',
