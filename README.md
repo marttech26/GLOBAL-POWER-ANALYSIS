@@ -1,4 +1,5 @@
-# GLOBAL ENERGY ANALYSIS
+# GLOBAL POWER ANALYSIS
+![Screenshot 2024-02-14 003644](https://github.com/bulemi2/GLOBALPOWER-ANALYSIS/assets/133605850/8ac59602-317e-4589-bedf-e80b991f8ba2)
 
 ## Introduction
 Renewable energy, encompassing diverse sources such as solar, wind, hydro, and geothermal power, offers a pathway towards decarbonizing our energy systems and mitigating the adverse effects of fossil fuel consumption. Recognizing the critical importance of this transition, this project endeavors to delve into the realm of renewable energy. Our goal is to analyze global data on renewable energy technologies, shedding light on their current contributions to the energy mix and the pace of their evolution. In doing so, we seek to provide valuable insights to stakeholders, shaping the discourse on sustainable energy and enriching our collective knowledge of renewable energy infrastructure worldwide.
@@ -61,11 +62,70 @@ Data preparation involved merging several data files into a single DataFrame usi
 ## Exploratory Data Analysis
 Both univariate and bivariate analyses were performed:
 The line plot illustrates the comparison between total renewable electricity generation and electricity generation from non-renewable sources over the years. It demonstrates that renewable energy sources, including wind, hydro, solar, and other renewables, consistently contribute more to electricity generation compared to non-renewable sources such as coal, natural gas, and nuclear energy. In essence, renewable energy sources emerge as the primary contributors to electricity generation in the dataset, with non-renewable sources playing a secondary role. This perspective highlights the dominance of renewable energy in the dataset's electricity generation dynamics over time.
-
+![Untitled](https://github.com/bulemi2/GLOBALPOWER-ANALYSIS/assets/133605850/8267e7ba-6372-46d3-88c9-fc1788cad08e)
 
 The bar plot presents the top 70 regions with the highest total renewable electricity generation, showcasing China as the leader, followed by the United States, European Union, India, and Brazil. These leading regions collectively contribute a substantial portion of total renewable electricity generation. Additionally, the plot highlights disparities, revealing many regions with relatively low renewable electricity generation, particularly African countries and some Asian nations. This observation suggests untapped potential for renewable energy expansion in these regions. Overall, the bar plot emphasizes the significance of renewable energy contributions from leading regions while signaling opportunities for growth and development in regions with lower renewable electricity generation.
-![Untitled](https://github.com/bulemi2/GLOBALPOWER-ANALYSIS/assets/133605850/01569c26-c837-4daf-970e-cdafa952f043)
+![Untitled](https://github.com/bulemi2/GLOBALPOWER-ANALYSIS/assets/133605850/42f33837-c945-40ff-9608-8810200afda4)
 
+The plot depicts the global trend of renewable energy generation over time, showcasing a steady increase with fluctuations. Hydroelectric power dominates, followed by significant contributions from wind and solar power. Other renewables like bioenergy also play a role, albeit to a lesser extent. This data underscores global efforts to reduce emissions and expand renewable energy sources. However, challenges such as infrastructure, financing, and policy limitations remain.
+![Untitled](https://github.com/bulemi2/GLOBALPOWER-ANALYSIS/assets/133605850/c85dba25-d810-47da-9006-8b4e5bbeb969)
 
+## MODELING
 
+The analysis compared the performance of three machine learning algorithms (Random Forest, Gradient Boosting, and Linear Regression) in predicting renewable energy production across different energy sources. 
+ 	Random Forest 	GradientBoosting
+Wind	0.964	0.968
+Hydro	0.980	0.975
+Solar	0.851	0.895
+Bioenergy	0.991	0.989
+Total Renewable 	0.967	0.997
+Fossil Fuels	0.971	0.972
+
+We chose ARIMA model for its time series nature. 
+
+Achieved MSE of 2590.25, RMSE of 50.894 overall, but notably lower for localized data: MSE ‘13.2’, RMSE ‘1.31243’.
+Insights:
+1. Linear Regression consistently performed well with low error metrics and high R-squared scores.
+2. Random Forest and Gradient Boosting showed signs of overfitting, performing slightly worse on unseen data.
+3. Cross-validation confirmed the robustness of the Linear Regression model.
+4. The ARIMA model was applied to time series data, yielding reasonable fit statistics but with room for improvement.
+5. Forecasting was effective for localized data but less accurate when aggregating data from multiple countries.
+6. Detailed reports with visualizations and insights were generated for each energy source.
+
+## Conclusion
+
+The analysis highlights the importance of model selection and evaluation in predicting renewable energy production accurately. Linear Regression emerged as the most reliable model, emphasizing the need for further research to enhance forecasting accuracy, especially for heterogeneous datasets.
+Hydropower Dominance: The analysis highlights hydropower's significant role in global renewable energy, evident from its strong correlation with total renewable electricity generation.
+
+Diversification Potential: Positive correlations between wind and solar energy suggest opportunities for strategic portfolio diversification, aiding countries in balancing their renewable energy mix.
+
+## Recommendations
+Non-Renewable Dependency: Near-perfect correlation between non-renewable electricity and overall generation emphasizes continued reliance on non-renewable sources, urging a gradual shift towards sustainability.
+
+Renewable Energy Growth: Wind, solar, and hydropower show promising growth trends, indicating a rising trajectory in global renewable energy adoption.
+
+Strategic Investments: Optimize wind and solar energy investments using predictive modeling to target high-growth regions efficiently.
+
+Hydropower Planning: Utilize modeling insights to strategically plan hydropower projects, enhancing efficiency and sustainability.
+
+Diversification Strategies: Promote diversified renewable energy approaches, leveraging predictive models to identify optimal combinations of wind, solar, and hydropower.
+
+Transition Policies: Align transition policies with predictive modeling, offering targeted incentives and regulations to support renewable energy growth areas.
+
+Enhance Data Accessibility: Improve access to renewable energy data through user-friendly platforms, empowering stakeholders to make informed decisions.
+
+Foster Collaboration: Facilitate collaboration among governments, organizations, and industry to advance renewable energy technologies and policies globally.
+
+Embrace Innovative Solutions: Drive adoption of innovative solutions like smart grids and energy storage to address renewable energy challenges and promote scalability.
+
+**Next Steps**
+
+Refine and Validate Models:
+- Continuously refine and validate the regression models, exploring additional variables and feature engineering techniques to improve accuracy.
+
+Temporal Analysis:
+- Assess renewable energy trends across various timeframes to ensure model robustness over time and capture temporal variations effectively.
+
+Regional Sensitivity Analysis:
+- Perform sensitivity analyses at regional levels to recognize unique challenges and characteristics, enabling tailored strategies to address specific regional needs.
 
