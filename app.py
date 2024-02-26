@@ -102,21 +102,6 @@ def index():
     generate_button = st.button('Generate Forecast')
     return country_name, forecast_type, generate_button
 
-# trial background
-def add_bg_from_url():
-    st.markdown(
-        f"""
-        <style>
-        .stApp {{
-            background-image: url("https://images.app.goo.gl/BybwwvsgJHcZnvwj8");
-            background-size: cover;
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-
-add_bg_from_url()
 
 def forecast(country_name, forecast_type):
     try:
