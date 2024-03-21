@@ -88,7 +88,7 @@ Temporal Analysis:
 Regional Sensitivity Analysis:
 - Perform sensitivity analyses at regional levels to recognize unique challenges and characteristics, enabling tailored strategies to address specific regional needs.
 
-## Contributor
+## Contributors
 - [David Ambani](https://github.com/bulemi2) - Project Manager
 - [Cynthia Kareko](https://github.com/karekocyn) - Data Analyst
 - [Joy Wangui](https://github.com/carfew001) - Data Analyst
