@@ -60,10 +60,11 @@ Three machine learning algorithms (Random Forest, Gradient Boosting, and Linear 
 - Linear Regression consistently performed well with low error metrics.
 - ARIMA model showed promise for time series forecasting.
 - Wind and solar energy offer diversification opportunities in the renewable energy mix.
+- We chose ARIMA model for its time series nature, since the data was a time series data. 
 
 ## Conclusion
 
-The analysis underscores the importance of model selection and evaluation in predicting renewable energy production accurately. Linear Regression emerged as the most reliable model, emphasizing the need for further research to enhance forecasting accuracy.
+The analysis underscores the importance of model selection and evaluation in predicting renewable energy production accurately. ARIMA emerged as the most reliable model, emphasizing the need for further research to enhance forecasting accuracy.
 
 ## Recommendations
 - Reduce Non-Renewable Dependency: Gradually shift towards sustainable energy sources to reduce reliance on non-renewables.
