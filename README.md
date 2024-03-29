@@ -77,7 +77,7 @@ The analysis underscores the importance of model selection and evaluation in pre
 - Foster Collaboration: Facilitate collaboration among governments, organizations, and industry to advance renewable energy technologies and policies globally.
 - Embrace Innovative Solutions: Drive adoption of innovative solutions like smart grids and energy storage to address renewable energy challenges and promote scalability.
 
-**Next Steps**
+## Next Steps
 
 Refine and Validate Models:
 - Continuously refine and validate the regression models, exploring additional variables and feature engineering techniques to improve accuracy.
